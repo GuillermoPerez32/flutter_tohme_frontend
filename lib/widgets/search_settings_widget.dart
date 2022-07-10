@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tohome/bloc/catalog_bloc.dart';
+import 'package:tohome/blocs/catalog/catalog_bloc.dart';
 
 class SearchAndSettings extends StatelessWidget {
   final double _radius = 10;

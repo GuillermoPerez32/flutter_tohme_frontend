@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/catalog_bloc.dart';
+import 'package:tohome/blocs/catalog/catalog_bloc.dart';
 import '../models/product_model.dart';
 import 'product_card_widget.dart';
 
@@ -11,10 +11,19 @@ class ProductsCatalog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CatalogBloc, CatalogState>(
       builder: (context, state) {
-        BlocProvider.of<CatalogBloc>(context).add(GetCatalogEvent());
-        return Wrap(
-          children: _products(state.products),
-        );
+        if (state.products.isEmpty) {
+          BlocProvider.of<CatalogBloc>(context).add(GetCatalogEvent());
+        }
+        return state.products.isEmpty
+            ? const Center(
+                child: Image(
+                  image: AssetImage('assets/not_found.png'),
+                  height: 150,
+                ),
+              )
+            : Wrap(
+                children: _products(state.products),
+              );
       },
     );
   }

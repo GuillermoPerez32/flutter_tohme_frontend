@@ -9,26 +9,31 @@ part 'catalog_event.dart';
 part 'catalog_state.dart';
 
 class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
-  CatalogBloc() : super(CatalogState(products: [])) {
+  CatalogBloc() : super(CatalogState(products: [], loaded: false)) {
     on<GetCatalogEvent>((event, emit) async {
       // TODO: implement event handler
       List<Product> products = await getProducts().whenComplete(() {});
-      emit(CatalogState(products: products));
+      emit(CatalogState(products: products, loaded: true));
     });
   }
 
   Future<List<Product>> getProducts() async {
-    var response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/api/products/'));
+    try {
+      var response =
+          await http.get(Uri.parse('http://127.0.0.1:8000/api/products/'));
 
-    if (response.statusCode == 200) {
-      List<Product> products = [];
-      final list = json.decode(response.body);
-      for (var item in list) {
-        products.add(Product.fromJson(item));
+      if (response.statusCode == 200) {
+        List<Product> products = [];
+        final list = json.decode(response.body);
+        for (var item in list) {
+          products.add(Product.fromJson(item));
+        }
+        return products;
+      } else {
+        return [];
       }
-      return products;
-    } else {
+    } on Exception {
+      // TODO
       return [];
     }
   }

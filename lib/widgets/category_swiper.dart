@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/catalog/catalog_bloc.dart';
+import 'package:tohome/models/product_model.dart';
 
 class CategorySwiper extends StatelessWidget {
   const CategorySwiper({
@@ -9,34 +12,44 @@ class CategorySwiper extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      child: PageView(
-        pageSnapping: false,
-        controller: PageController(
-          initialPage: 1,
-          viewportFraction: .32,
-        ),
-        children: const [
-          CategoryCard(selected: true),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-          CategoryCard(),
-        ],
+      child: BlocBuilder<CatalogBloc, CatalogState>(
+        builder: (context, state) {
+          return PageView(
+            pageSnapping: false,
+            controller: PageController(
+              initialPage: 1,
+              viewportFraction: .32,
+            ),
+            children: _getCategories(state.products),
+          );
+        },
       ),
     );
+  }
+
+  List<Widget> _getCategories(List<Product> products) {
+    List<Widget> cards = [];
+    List<int> categories = [];
+    for (Product product in products) {
+      categories.addAll(product.categories);
+    }
+    categories = categories.toSet().toList();
+    for (int category in categories) {
+      cards.add(CategoryCard(text: category.toString()));
+    }
+    return cards;
   }
 }
 
 class CategoryCard extends StatelessWidget {
   final bool selected;
 
+  final String text;
+
   const CategoryCard({
     Key? key,
     this.selected = false,
+    required this.text,
   }) : super(key: key);
 
   @override
@@ -48,18 +61,18 @@ class CategoryCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
       child: ListTile(
         selected: selected,
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         onTap: () {},
         horizontalTitleGap: 0,
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.fastfood,
               color: Colors.black,
             ),
-            Text('Comida',
-                style: TextStyle(
+            Text(text,
+                style: const TextStyle(
                   fontSize: 16,
                   // fontWeight: FontWeight.bold,
                 )),
