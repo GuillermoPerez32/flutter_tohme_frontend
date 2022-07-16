@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tohome/blocs/catalog/catalog_bloc.dart';
+import 'package:tohome/presentation/styles/colors.dart';
+import 'package:tohome/presentation/styles/styles.dart';
 
-import 'pages/home_page.dart';
+import 'presentation/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 230, 169, 146),
+          backgroundColor: const Color.fromARGB(255, 245, 246, 250),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 245, 246, 250),
           appBarTheme: const AppBarTheme(
             // foregroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
@@ -43,6 +46,9 @@ class MyApp extends StatelessWidget {
               color: Colors.black,
               fontSize: 25,
             ),
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primary,
           ),
         ),
         debugShowCheckedModeBanner: false,

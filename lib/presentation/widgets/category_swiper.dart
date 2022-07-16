@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tohome/blocs/catalog/catalog_bloc.dart';
-import 'package:tohome/models/product_model.dart';
+
+import '../../data/models/product.dart';
 
 class CategorySwiper extends StatelessWidget {
   const CategorySwiper({

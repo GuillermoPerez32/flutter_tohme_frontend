@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tohome/models/product_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../../data/models/product.dart';
 
 part 'catalog_event.dart';
 part 'catalog_state.dart';
