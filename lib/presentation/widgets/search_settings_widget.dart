@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class SearchAndCart extends StatelessWidget {
   final double _radius = 10;
 
-  const SearchAndCart({
+  final TextEditingController _searchController = TextEditingController();
+
+  SearchAndCart({
     Key? key,
   }) : super(key: key);
 
@@ -24,9 +26,19 @@ class SearchAndCart extends StatelessWidget {
                 side: BorderSide.none,
               ),
               color: Colors.white,
-              child: const TextField(
+              child: TextField(
+                controller: _searchController,
+                onChanged: (value) {
+                  print(value);
+                },
                 decoration: InputDecoration(
                   hintText: "Buscar...",
+                  suffix: IconButton(
+                    onPressed: () => _searchController.text = '',
+                    icon: Icon(
+                      Icons.clear,
+                    ),
+                  ),
                   prefixIcon: Icon(
                     Icons.search,
                     color: Color.fromARGB(255, 16, 16, 22),

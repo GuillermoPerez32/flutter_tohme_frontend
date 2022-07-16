@@ -54,13 +54,11 @@ class _MyPageView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      pageSnapping: false,
-      controller: PageController(
-        viewportFraction: .6,
-      ),
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
       itemCount: products.length,
       itemBuilder: (BuildContext context, int index) => ProductCard(
+        direction: Axis.vertical,
         imgRoute: products[index].image,
         id: products[index].uuid,
       ),

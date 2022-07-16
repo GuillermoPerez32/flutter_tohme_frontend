@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tohome/blocs/catalog/catalog_bloc.dart';
 
 import '../../data/models/product.dart';
 
@@ -12,20 +11,15 @@ class CategorySwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      child: BlocBuilder<CatalogBloc, CatalogState>(
-        builder: (context, state) {
-          return PageView(
-            pageSnapping: false,
-            controller: PageController(
-              initialPage: 1,
-              viewportFraction: .32,
-            ),
-            children: _getCategories(state.products),
-          );
-        },
-      ),
-    );
+        height: 50,
+        child: PageView(
+          pageSnapping: false,
+          controller: PageController(
+            initialPage: 1,
+            viewportFraction: .32,
+          ),
+          children: _getCategories([]),
+        ));
   }
 
   List<Widget> _getCategories(List<Product> products) {

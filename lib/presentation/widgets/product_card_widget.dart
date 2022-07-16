@@ -7,10 +7,13 @@ class ProductCard extends StatelessWidget {
 
   final String imgRoute;
 
+  final Axis direction;
+
   const ProductCard({
     Key? key,
     required this.imgRoute,
     required this.id,
+    required this.direction,
   }) : super(key: key);
 
   @override
@@ -26,54 +29,75 @@ class ProductCard extends StatelessWidget {
             ),
           ),
         ),
-        child: Card(
-          margin: const EdgeInsets.only(right: 25),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: 7,
-          // semanticContainer: true,
-          shape: RoundedRectangleBorder(
-            side: BorderSide.none,
-            borderRadius: BorderRadius.circular(cardRadius),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Hero(
-                  tag: id,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(cardRadius),
-                    child: Center(
-                      child: Image(
-                        image: AssetImage(imgRoute),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Item Name',
-                        style: cardTitleStyle,
-                      ),
-                      Text(
-                        'Description',
-                        style: descriptionStyle,
-                      ),
-                    ],
-                  ),
-                ),
-                Text('\$100.00')
-              ],
-            ),
-          ),
-        ),
+        child: direction == Axis.vertical
+            ? SizedBox(
+                width: pageViewSize * .75,
+                child: _MyCard(),
+              )
+            : Expanded(
+                child: _MyCard(),
+              ),
       ),
     );
   }
+
+  List<Widget> _cardContent() => [
+        Hero(
+          tag: id,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(cardRadius),
+            child: Center(
+              child: Image(
+                image: AssetImage(imgRoute),
+                fit: BoxFit.cover,
+                height:
+                    direction == Axis.horizontal ? bestSelledSize - 20 : null,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Item Name',
+                style: cardTitleStyle,
+              ),
+              Text(
+                'Description',
+                style: descriptionStyle,
+              ),
+              // Expanded(child: SizedBox()),
+              Text('\$100.00')
+            ],
+          ),
+        ),
+      ];
+
+  _MyCard() => Card(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: 7,
+        // semanticContainer: true,
+        shape: RoundedRectangleBorder(
+          side: BorderSide.none,
+          borderRadius: BorderRadius.circular(cardRadius),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: direction == Axis.vertical
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: _cardContent(),
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _cardContent(),
+                ),
+        ),
+      );
 }
