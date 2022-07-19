@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tohome/presentation/widgets/button_cart.dart';
 
 class SearchAndCart extends StatelessWidget {
   final double _radius = 10;
@@ -49,10 +50,7 @@ class SearchAndCart extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          IconButton(
-            onPressed: () => Navigator.of(context).pushNamed('cart'),
-            icon: const Icon(Icons.shopping_cart_outlined),
-          ),
+          ButtonToCart(),
         ],
       ),
     );

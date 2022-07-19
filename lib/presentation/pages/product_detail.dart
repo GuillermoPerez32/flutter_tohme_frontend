@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/styles/styles.dart';
+import 'package:tohome/presentation/widgets/app_bar.dart';
+import 'package:tohome/presentation/widgets/button_cart.dart';
 
 class ProductDetailPage extends StatelessWidget {
   final String imgRoute;
@@ -22,7 +24,7 @@ class ProductDetailPage extends StatelessWidget {
           Stack(
             children: [
               _Body(imgRoute: imgRoute, screenSize: _screenSize, id: id),
-              const _AppBar(),
+              const CustomAppBar(),
               _LikeButton(screenSize: _screenSize),
             ],
           ),
@@ -244,24 +246,6 @@ class _ProductImage extends StatelessWidget {
         ),
       ),
       tag: id,
-    );
-  }
-}
-
-class _AppBar extends StatelessWidget {
-  const _AppBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back),
-        ),
-      ],
     );
   }
 }

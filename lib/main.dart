@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           // foregroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: Colors.black),
           // centerTitle: true,
           titleTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
@@ -46,8 +47,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: 'home',
       routes: <String, Widget Function(BuildContext)>{
-        '/': (conext) => const HomePage(),
-        'cart': (conext) => const CartPage(),
+        '/': (context) => const HomePage(),
+        'cart': (context) => const CartPage(),
       },
     );
   }
