@@ -28,22 +28,20 @@ class SearchAndCart extends StatelessWidget {
               color: Colors.white,
               child: TextField(
                 controller: _searchController,
-                onChanged: (value) {
-                  print(value);
-                },
+                onChanged: (value) {},
                 decoration: InputDecoration(
                   hintText: "Buscar...",
-                  suffix: IconButton(
-                    onPressed: () => _searchController.text = '',
-                    icon: Icon(
-                      Icons.clear,
-                    ),
-                  ),
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.search,
                     color: Color.fromARGB(255, 16, 16, 22),
                   ),
-                  border: OutlineInputBorder(
+                  suffixIcon: IconButton(
+                    onPressed: () => _searchController.text = '',
+                    icon: const Icon(
+                      Icons.clear,
+                    ),
+                  ),
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide.none,
                   ),
                 ),
@@ -52,7 +50,7 @@ class SearchAndCart extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pushNamed('cart'),
             icon: const Icon(Icons.shopping_cart_outlined),
           ),
         ],

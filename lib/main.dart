@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/presentation/pages/cart.dart';
 import 'package:tohome/presentation/styles/colors.dart';
-import 'package:tohome/presentation/styles/styles.dart';
 
 import 'presentation/pages/home.dart';
 
@@ -40,14 +39,15 @@ class MyApp extends StatelessWidget {
             fontSize: 25,
           ),
         ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: primary,
         ),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: 'home',
       routes: <String, Widget Function(BuildContext)>{
-        'home': (conext) => const HomePage(),
+        '/': (conext) => const HomePage(),
+        'cart': (conext) => const CartPage(),
       },
     );
   }

@@ -32,11 +32,9 @@ class ProductCard extends StatelessWidget {
         child: direction == Axis.vertical
             ? SizedBox(
                 width: pageViewSize * .75,
-                child: _MyCard(),
+                child: _myCard(),
               )
-            : Expanded(
-                child: _MyCard(),
-              ),
+            : _myCard(),
       ),
     );
   }
@@ -61,7 +59,7 @@ class ProductCard extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+            children: const [
               Text(
                 'Item Name',
                 style: cardTitleStyle,
@@ -77,7 +75,7 @@ class ProductCard extends StatelessWidget {
         ),
       ];
 
-  _MyCard() => Card(
+  _myCard() => Card(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 7,

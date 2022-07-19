@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tohome/presentation/styles/colors.dart';
-import 'package:tohome/presentation/styles/styles.dart';
 import 'package:tohome/presentation/widgets/product_card_widget.dart';
 import 'package:tohome/presentation/widgets/products_catalog_widget.dart';
 
@@ -13,6 +12,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const _MyAppBar(),
@@ -24,17 +24,17 @@ class HomePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 SearchAndCart(),
                 const SizedBox(height: 10),
-                _TitleText('Explorar'),
+                const _TitleText('Explorar'),
                 const SizedBox(height: 10),
               ],
             ),
           ),
           const ProductsCatalog(),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 _TitleText('Best Selled'),
                 ProductCard(
                   imgRoute: 'assets/hamburguesa.jpg',
