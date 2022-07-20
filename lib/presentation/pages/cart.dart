@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/widgets/app_bar.dart';
 
 class CartPage extends StatelessWidget {
@@ -31,44 +34,99 @@ class _CheckoutMenu extends StatelessWidget {
       topLeft: Radius.circular(50),
       topRight: Radius.circular(50),
     );
-    return Container(
-      child: Card(
-        borderOnForeground: true,
-        shadowColor: Colors.black,
-        semanticContainer: true,
-        color: Colors.grey[300],
-        shape: const RoundedRectangleBorder(
+    return Card(
+      borderOnForeground: true,
+      shadowColor: Colors.black,
+      semanticContainer: true,
+      color: Colors.grey[400],
+      shape: const RoundedRectangleBorder(
+        borderRadius: topBorderRadius,
+      ),
+      surfaceTintColor: Colors.black,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      margin: EdgeInsets.zero,
+      elevation: 60,
+      child: Container(
+        height: _screenSize.height * .30,
+        width: _screenSize.width,
+        child: ClipRRect(
           borderRadius: topBorderRadius,
-        ),
-        surfaceTintColor: Colors.black,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        margin: EdgeInsets.zero,
-        elevation: 60,
-        child: Container(
-          height: _screenSize.height * .30,
-          width: _screenSize.width,
-          child: ClipRRect(
-            borderRadius: topBorderRadius,
-            child: Container(
-              padding: EdgeInsets.only(),
-              color: Colors.red,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Selected Items',
-                      )
-                    ],
-                  )
-                ],
-              ),
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: 32,
+              right: 32,
+              left: 32,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _CheckoutElement(name: 'Selected items', price: '\$100.00'),
+                _CheckoutElement(name: 'Shipping Fee', price: '\$10.00'),
+                Divider(),
+                _CheckoutElement(
+                  name: 'Subtotal',
+                  price: '\$110.00',
+                  bold: true,
+                ),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Center(
+                    child: Text('Checkout'),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(25),
+                    primary: primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                  ),
+                ),
+                Spacer(),
+              ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _CheckoutElement extends StatelessWidget {
+  final String name;
+
+  final String price;
+
+  final bool bold;
+
+  const _CheckoutElement({
+    Key? key,
+    required this.name,
+    required this.price,
+    this.bold = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          name,
+          style: TextStyle(
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            fontSize: 17,
+          ),
+        ),
+        Text(
+          price,
+          style: TextStyle(
+            color: Colors.pink,
+            fontSize: 17,
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+          ),
+        )
+      ],
     );
   }
 }
@@ -81,13 +139,68 @@ class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
-    return Container(
-      color: Colors.blueGrey,
-      height: _screenSize.height * .5,
+    return SizedBox(
+      height: _screenSize.height * .6,
       width: _screenSize.width,
       child: ListView(
-        children: [],
+        children: [
+          _CartElement(),
+        ],
       ),
+    );
+  }
+}
+
+class _CartElement extends StatelessWidget {
+  const _CartElement({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckboxListTile(
+      value: true,
+      onChanged: (bool? value) {},
+      activeColor: Colors.pink,
+      secondary: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image(
+          image: AssetImage('assets/hamburguesa.jpg'),
+          height: 90,
+        ),
+      ),
+      title: Text('Hamburguesa'),
+      subtitle: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('\$100',
+              style: TextStyle(
+                color: Colors.pink,
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              )),
+          OutlinedButton(
+            onPressed: () {},
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.exposure_minus_1,
+                  ),
+                ),
+                Text('25'),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.add),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+      enableFeedback: true,
+      visualDensity: VisualDensity.comfortable,
     );
   }
 }
