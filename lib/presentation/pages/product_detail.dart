@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tohome/presentation/enums.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/styles/styles.dart';
 import 'package:tohome/presentation/widgets/app_bar.dart';
@@ -18,13 +19,14 @@ class ProductDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size _screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
           Stack(
             children: [
               _Body(imgRoute: imgRoute, screenSize: _screenSize, id: id),
-              const CustomAppBar(),
               _LikeButton(screenSize: _screenSize),
             ],
           ),
