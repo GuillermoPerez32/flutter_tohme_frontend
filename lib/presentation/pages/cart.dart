@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/widgets/app_bar.dart';
@@ -63,10 +61,12 @@ class _CheckoutMenu extends StatelessWidget {
                 _CheckoutElement(name: 'Selected items', price: '\$100.00'),
                 _CheckoutElement(name: 'Shipping Fee', price: '\$10.00'),
                 Divider(),
+                Spacer(),
                 _CheckoutElement(
                   name: 'Subtotal',
                   price: '\$110.00',
                   bold: true,
+                  big: true,
                 ),
                 Spacer(),
                 ElevatedButton(
@@ -99,11 +99,14 @@ class _CheckoutElement extends StatelessWidget {
 
   final bool bold;
 
+  final bool big;
+
   const _CheckoutElement({
     Key? key,
     required this.name,
     required this.price,
     this.bold = false,
+    this.big = false,
   }) : super(key: key);
 
   @override
@@ -115,15 +118,15 @@ class _CheckoutElement extends StatelessWidget {
           name,
           style: TextStyle(
             fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-            fontSize: 17,
+            fontSize: big ? 25 : 17,
           ),
         ),
         Text(
           price,
           style: TextStyle(
             color: Colors.pink,
-            fontSize: 17,
-            fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            fontSize: big ? 25 : 17,
+            fontWeight: FontWeight.bold,
           ),
         )
       ],
