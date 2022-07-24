@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      initialRoute: 'home',
+      initialRoute: '',
       routes: <String, Widget Function(BuildContext)>{
-        '/': (context) => const HomePage(),
+        '': (context) => const HomePage(),
         'cart': (context) => const CartPage(),
       },
     );

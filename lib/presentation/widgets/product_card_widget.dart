@@ -56,20 +56,29 @@ class ProductCard extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
-              Text(
-                'Item Name',
-                style: cardTitleStyle,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: const [
+                  Text(
+                    'Item Name',
+                    style: cardTitleStyle,
+                  ),
+                  Text(
+                    'Description',
+                    style: descriptionStyle,
+                  ),
+                  // Expanded(child: SizedBox()),
+                  Text('\$100.00')
+                ],
               ),
-              Text(
-                'Description',
-                style: descriptionStyle,
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.add_shopping_cart_outlined),
               ),
-              // Expanded(child: SizedBox()),
-              Text('\$100.00')
             ],
           ),
         ),
