@@ -12,7 +12,15 @@ class ToHomeRepository {
     final List<Product> products = [];
 
     final data = await tohomeAPI.getProducts();
-    data.map((e) => products.add(Product.fromJson(e)));
+    data?.map((e) => products.add(Product.fromJson(e)));
     return products;
+  }
+
+  Future<Product?> getProductsById(String uuid) async {
+    final Product? product;
+
+    final data = await tohomeAPI.getProductById(uuid);
+    product = Product.fromJson(data!);
+    return product;
   }
 }
