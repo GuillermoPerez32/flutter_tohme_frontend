@@ -11,8 +11,12 @@ class ToHomeRepository {
   Future<List<Product>> getProducts() async {
     final List<Product> products = [];
 
-    final data = await tohomeAPI.getProducts();
-    data?.map((e) => products.add(Product.fromJson(e)));
+    try {
+      final data = await tohomeAPI.getProducts();
+      data.map((e) => products.add(Product.fromJson(e)));
+    } on Exception catch (e) {
+      throw e;
+    }
     return products;
   }
 
@@ -20,7 +24,7 @@ class ToHomeRepository {
     final Product? product;
 
     final data = await tohomeAPI.getProductById(uuid);
-    product = Product.fromJson(data!);
+    product = Product.fromJson(data);
     return product;
   }
 }
