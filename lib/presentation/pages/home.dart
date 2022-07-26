@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/tohome/tohome_cubit.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/widgets/product_card_widget.dart';
 import 'package:tohome/presentation/widgets/products_catalog_widget.dart';
@@ -49,13 +51,26 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 _TitleText('Best Selled'),
-                ProductCard(
-                  imgRoute: 'assets/hamburguesa.jpg',
-                  id: '600',
-                  direction: Axis.horizontal,
-                ),
+                BlocBuilder<TohomeCubit, TohomeState>(
+                    builder: (context, state) => state.when(
+                          loadingProducts: () => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          loadingError: () => Center(
+                            child: Image(
+                              height: 100,
+                              image: AssetImage(
+                                'assets/not_found.png',
+                              ),
+                            ),
+                          ),
+                          loadedProducts: (products) => ProductCard(
+                            product: products[0],
+                            direction: Axis.horizontal,
+                          ),
+                        )),
               ],
             ),
           )

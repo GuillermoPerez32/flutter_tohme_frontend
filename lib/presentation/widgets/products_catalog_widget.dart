@@ -39,8 +39,7 @@ class _MyPageView extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (BuildContext context, int index) => ProductCard(
               direction: Axis.vertical,
-              imgRoute: products[index].image,
-              id: products[index].uuid,
+              product: products[index],
             ),
           ),
         );

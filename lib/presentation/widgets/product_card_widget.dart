@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/cart/cart_cubit.dart';
+import 'package:tohome/data/models/product.dart';
 import 'package:tohome/presentation/pages/product_detail.dart';
 import 'package:tohome/presentation/styles/styles.dart';
 
 class ProductCard extends StatelessWidget {
-  final String id;
-
-  final String imgRoute;
-
+  final Product product;
   final Axis direction;
 
   const ProductCard({
     Key? key,
-    required this.imgRoute,
-    required this.id,
+    required this.product,
     required this.direction,
   }) : super(key: key);
 
@@ -24,29 +23,28 @@ class ProductCard extends StatelessWidget {
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => ProductDetailPage(
-              imgRoute: imgRoute,
-              id: id,
+              product: product,
             ),
           ),
         ),
         child: direction == Axis.vertical
             ? SizedBox(
                 width: pageViewSize * .75,
-                child: _myCard(),
+                child: _myCard(context),
               )
-            : _myCard(),
+            : _myCard(context),
       ),
     );
   }
 
-  List<Widget> _cardContent() => [
+  List<Widget> _cardContent(context) => [
         Hero(
-          tag: id,
+          tag: product.uuid,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(cardRadius),
             child: Center(
               child: Image(
-                image: AssetImage(imgRoute),
+                image: AssetImage(product.image),
                 fit: BoxFit.cover,
                 height:
                     direction == Axis.horizontal ? bestSelledSize - 20 : null,
@@ -76,7 +74,8 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () =>
+                    BlocProvider.of<CartCubit>(context).addProduct(product),
                 icon: Icon(Icons.add_shopping_cart_outlined),
               ),
             ],
@@ -84,7 +83,7 @@ class ProductCard extends StatelessWidget {
         ),
       ];
 
-  _myCard() => Card(
+  _myCard(context) => Card(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 7,
@@ -99,11 +98,11 @@ class ProductCard extends StatelessWidget {
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: _cardContent(),
+                  children: _cardContent(context),
                 )
               : Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _cardContent(),
+                  children: _cardContent(context),
                 ),
         ),
       );

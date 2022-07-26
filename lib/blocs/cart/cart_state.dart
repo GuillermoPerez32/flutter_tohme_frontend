@@ -4,5 +4,5 @@ part of 'cart_cubit.dart';
 class CartState with _$CartState {
   const factory CartState.initial() = _Initial;
 
-  const factory CartState.addedProduct(Product product) = _AddedProduct;
+  const factory CartState.addedProduct(List<Product> product) = _AddedProduct;
 }

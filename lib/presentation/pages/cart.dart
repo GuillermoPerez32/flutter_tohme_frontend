@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/cart/cart_cubit.dart';
+import 'package:tohome/data/models/product.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/widgets/app_bar.dart';
 
@@ -143,21 +146,29 @@ class _CartList extends StatelessWidget {
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: _screenSize.height * .6,
-      width: _screenSize.width,
-      child: ListView(
-        children: [
-          _CartElement(),
-        ],
-      ),
-    );
+        height: _screenSize.height * .6,
+        width: _screenSize.width,
+        child: BlocListener<CartCubit, List<Product>>(
+          listener: (context, products) {
+            // TODO: implement listener
+            ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _CartElement(product: products[index]);
+              },
+            );
+          },
+        ));
   }
 }
 
 class _CartElement extends StatelessWidget {
   const _CartElement({
     Key? key,
+    required this.product,
   }) : super(key: key);
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -168,15 +179,15 @@ class _CartElement extends StatelessWidget {
       secondary: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image(
-          image: AssetImage('assets/hamburguesa.jpg'),
+          image: AssetImage(product.image),
           height: 90,
         ),
       ),
-      title: Text('Hamburguesa'),
+      title: Text(product.name),
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('\$100',
+          Text('${product.price}',
               style: TextStyle(
                 color: Colors.pink,
                 fontSize: 17,

@@ -5,8 +5,9 @@ import 'package:tohome/data/models/product.dart';
 part 'cart_state.dart';
 part 'cart_cubit.freezed.dart';
 
-class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartState.initial());
+class CartCubit extends Cubit<List<Product>> {
+  CartCubit() : super([]);
 
-  void addProduct(Product product) => emit(_AddedProduct(product));
+  void addProduct(Product product) => emit(state..add(product));
+  void removeProduct(Product product) => emit(state..remove(product));
 }

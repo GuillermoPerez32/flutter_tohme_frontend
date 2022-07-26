@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tohome/data/models/product.dart';
 import 'package:tohome/presentation/enums.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 import 'package:tohome/presentation/styles/styles.dart';
@@ -6,13 +7,11 @@ import 'package:tohome/presentation/widgets/app_bar.dart';
 import 'package:tohome/presentation/widgets/button_cart.dart';
 
 class ProductDetailPage extends StatelessWidget {
-  final String imgRoute;
-  final String id;
+  final Product product;
 
   const ProductDetailPage({
     Key? key,
-    required this.imgRoute,
-    required this.id,
+    required this.product,
   }) : super(key: key);
 
   @override
@@ -26,7 +25,10 @@ class ProductDetailPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              _Body(imgRoute: imgRoute, screenSize: _screenSize, id: id),
+              _Body(
+                  imgRoute: product.image,
+                  screenSize: _screenSize,
+                  id: product.uuid),
               _LikeButton(screenSize: _screenSize),
             ],
           ),

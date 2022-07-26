@@ -19,19 +19,19 @@ mixin _$CartState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Product product) addedProduct,
+    required TResult Function(List<Product> product) addedProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -111,7 +111,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Product product) addedProduct,
+    required TResult Function(List<Product> product) addedProduct,
   }) {
     return initial();
   }
@@ -120,7 +120,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
   }) {
     return initial?.call();
   }
@@ -129,7 +129,7 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -179,7 +179,7 @@ abstract class _$$_AddedProductCopyWith<$Res> {
   factory _$$_AddedProductCopyWith(
           _$_AddedProduct value, $Res Function(_$_AddedProduct) then) =
       __$$_AddedProductCopyWithImpl<$Res>;
-  $Res call({Product product});
+  $Res call({List<Product> product});
 }
 
 /// @nodoc
@@ -198,9 +198,9 @@ class __$$_AddedProductCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
   }) {
     return _then(_$_AddedProduct(
       product == freezed
-          ? _value.product
+          ? _value._product
           : product // ignore: cast_nullable_to_non_nullable
-              as Product,
+              as List<Product>,
     ));
   }
 }
@@ -208,10 +208,14 @@ class __$$_AddedProductCopyWithImpl<$Res> extends _$CartStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddedProduct implements _AddedProduct {
-  const _$_AddedProduct(this.product);
+  const _$_AddedProduct(final List<Product> product) : _product = product;
 
+  final List<Product> _product;
   @override
-  final Product product;
+  List<Product> get product {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_product);
+  }
 
   @override
   String toString() {
@@ -223,12 +227,12 @@ class _$_AddedProduct implements _AddedProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddedProduct &&
-            const DeepCollectionEquality().equals(other.product, product));
+            const DeepCollectionEquality().equals(other._product, _product));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(product));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_product));
 
   @JsonKey(ignore: true)
   @override
@@ -239,7 +243,7 @@ class _$_AddedProduct implements _AddedProduct {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(Product product) addedProduct,
+    required TResult Function(List<Product> product) addedProduct,
   }) {
     return addedProduct(product);
   }
@@ -248,7 +252,7 @@ class _$_AddedProduct implements _AddedProduct {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
   }) {
     return addedProduct?.call(product);
   }
@@ -257,7 +261,7 @@ class _$_AddedProduct implements _AddedProduct {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(Product product)? addedProduct,
+    TResult Function(List<Product> product)? addedProduct,
     required TResult orElse(),
   }) {
     if (addedProduct != null) {
@@ -299,9 +303,9 @@ class _$_AddedProduct implements _AddedProduct {
 }
 
 abstract class _AddedProduct implements CartState {
-  const factory _AddedProduct(final Product product) = _$_AddedProduct;
+  const factory _AddedProduct(final List<Product> product) = _$_AddedProduct;
 
-  Product get product;
+  List<Product> get product;
   @JsonKey(ignore: true)
   _$$_AddedProductCopyWith<_$_AddedProduct> get copyWith =>
       throw _privateConstructorUsedError;

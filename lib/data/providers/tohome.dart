@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:tohome/constants/constants.dart';
 
 class ToHomeAPI {
   Future<Map<String, dynamic>> getProductById(String uuid) async {
     try {
-      var response =
-          await http.get(Uri.parse('http://127.0.0.1:8000/api/products/$uuid'));
+      var response = await http.get(Uri.parse('$host_tohome/products/$uuid'));
 
       return response.statusCode == 200 ? json.decode(response.body) : null;
     } on Exception catch (e) {
@@ -17,8 +17,7 @@ class ToHomeAPI {
 
   Future<List<Map<String, dynamic>>> getProducts() async {
     try {
-      var response =
-          await http.get(Uri.parse('http://127.0.0.1:8000/api/products/'));
+      var response = await http.get(Uri.parse('$host_tohome/products/'));
       return response.statusCode == 200 ? json.decode(response.body) : null;
     } on Exception {
       throw Exception();
