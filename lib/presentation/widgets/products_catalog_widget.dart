@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/tohome/tohome_cubit.dart';
 
 import 'package:tohome/data/models/product.dart';
 import 'package:tohome/presentation/styles/styles.dart';
@@ -18,48 +20,31 @@ class ProductsCatalog extends StatelessWidget {
 
 class _MyPageView extends StatelessWidget {
   _MyPageView({Key? key}) : super(key: key);
-  final List<Product> products = [
-    Product(
-        uuid: '1',
-        name: 'Hamburguesa',
-        categories: [1],
-        price: 25,
-        image: 'assets/hamburguesa.jpg',
-        stock: 24,
-        description: '',
-        rating: 0,
-        weekSell: 0),
-    Product(
-        uuid: '2',
-        name: 'Hamburguesa',
-        categories: [1],
-        price: 25,
-        image: 'assets/hamburguesa.jpg',
-        stock: 24,
-        description: '',
-        rating: 0,
-        weekSell: 0),
-    Product(
-        uuid: '3',
-        name: 'Hamburguesa',
-        categories: [1],
-        price: 25,
-        image: 'assets/hamburguesa.jpg',
-        stock: 24,
-        description: '',
-        rating: 0,
-        weekSell: 0),
-  ];
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: products.length,
-      itemBuilder: (BuildContext context, int index) => ProductCard(
-        direction: Axis.vertical,
-        imgRoute: products[index].image,
-        id: products[index].uuid,
-      ),
+    return BlocBuilder<TohomeCubit, TohomeState>(
+      builder: (context, state) {
+        return state.when(
+          loadingProducts: () => Center(
+            child: CircularProgressIndicator(),
+          ),
+          loadingError: () => Center(
+            child: Image(
+              image: AssetImage('assets/not_found.png'),
+            ),
+          ),
+          loadedProducts: (products) => ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: products.length,
+            itemBuilder: (BuildContext context, int index) => ProductCard(
+              direction: Axis.vertical,
+              imgRoute: products[index].image,
+              id: products[index].uuid,
+            ),
+          ),
+        );
+      },
     );
   }
 }

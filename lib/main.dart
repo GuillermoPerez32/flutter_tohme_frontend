@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tohome/blocs/cart/cart_cubit.dart';
+import 'package:tohome/blocs/tohome/tohome_cubit.dart';
 import 'package:tohome/presentation/pages/cart.dart';
 import 'package:tohome/presentation/styles/colors.dart';
 
@@ -12,6 +15,39 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TohomeCubit(),
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
+        ),
+      ],
+      child: _MaterialApp(),
+    );
+  }
+}
+
+class _MaterialApp extends StatefulWidget {
+  const _MaterialApp({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_MaterialApp> createState() => _MaterialAppState();
+}
+
+class _MaterialAppState extends State<_MaterialApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    BlocProvider.of<TohomeCubit>(context).getProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
