@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tohome/blocs/cart/cart_cubit.dart';
+import 'package:tohome/data/models/cart_product.dart';
 import 'package:tohome/data/models/product.dart';
 import 'package:tohome/presentation/pages/product_detail.dart';
 import 'package:tohome/presentation/styles/styles.dart';
@@ -74,8 +75,9 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
               IconButton(
-                onPressed: () =>
-                    BlocProvider.of<CartCubit>(context).addProduct(product),
+                onPressed: () => BlocProvider.of<CartCubit>(context).addProduct(
+                  CartProduct.fromProduct(product: product),
+                ),
                 icon: Icon(Icons.add_shopping_cart_outlined),
               ),
             ],

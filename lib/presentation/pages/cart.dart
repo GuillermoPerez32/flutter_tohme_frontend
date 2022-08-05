@@ -148,10 +148,10 @@ class _CartList extends StatelessWidget {
     return SizedBox(
         height: _screenSize.height * .6,
         width: _screenSize.width,
-        child: BlocListener<CartCubit, List<Product>>(
-          listener: (context, products) {
+        child: BlocBuilder<CartCubit, List<Product>>(
+          builder: (context, products) {
             // TODO: implement listener
-            ListView.builder(
+            return ListView.builder(
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
                 return _CartElement(product: products[index]);
